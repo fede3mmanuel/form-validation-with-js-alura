@@ -3,6 +3,30 @@ export function valida(input) {
     if (validadores[tipoDeInput]) {
         validadores[tipoDeInput](input)
     }
+
+    if (input.validity.valid) {
+        input.parentElement.classlist.remove("input-container--invalid")
+    }else {
+        input.parentElement.classlist.add("input-container--invalid")
+    }
+}
+
+const mensajesDeError = {
+    nombre: {
+        valueMissing: "Este campo no puede estar vacio"
+    }, 
+    email: {
+        valueMissing: "Este campo no puede estar vacio",
+        typeMissmatch: "El correo no es valido"
+    },
+    password: {
+        valueMissing: "Este campo no puede estar vacio",
+        patternMismatch: "Debe de tener mayusculas"
+    },
+    nacimiento: {
+        valueMissing: "Este campo no puede estar vacio",
+        customError: "Debes tener al menos 18 años"
+    }
 }
 
 const validadores = {
