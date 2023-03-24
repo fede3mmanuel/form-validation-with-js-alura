@@ -6,10 +6,19 @@ export function valida(input) {
 
     if (input.validity.valid) {
         input.parentElement.classlist.remove("input-container--invalid")
+        input.parentElement.querySelector(".input-message--error").innerHTML = ""
     }else {
         input.parentElement.classlist.add("input-container--invalid")
+        input.parentElement.querySelector(".input-message--error").innerHTML = mostrarMensajeDeError(tipoDeInput, input)
     }
 }
+
+const tipoDeErrores = [
+    "valueMissing",
+    "typeMissmatch",
+    "patternMismatch",
+    "customError"
+]
 
 const mensajesDeError = {
     nombre: {
@@ -31,6 +40,16 @@ const mensajesDeError = {
 
 const validadores = {
     nacimiento: input => validarNacimiento(input)
+}
+
+function mostrarMensajeDeError(tipoDeInput, input) {
+    let mensaje = ""
+    tipoDeErrores.forEach(error => {
+        if (input.validity[error]) {
+            console.log(input.validity.error);
+        }
+    })
+    return mensaje;
 }
 
 function validarNacimiento(input) {
